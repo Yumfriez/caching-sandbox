@@ -1,6 +1,6 @@
 package com.budaev.caching.redis.controller;
 
-import com.budaev.caching.redis.entity.model.Person;
+import com.budaev.caching.entity.model.Person;
 import com.budaev.caching.redis.service.person.PersonService;
 import org.springframework.web.bind.annotation.*;
 

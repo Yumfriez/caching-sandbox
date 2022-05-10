@@ -1,4 +1,4 @@
-package com.budaev.caching.redis.entity.exception;
+package com.budaev.caching.entity.exception;
 
 public class UserNotFoundException extends RuntimeException {
 

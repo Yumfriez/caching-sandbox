@@ -1,12 +1,10 @@
 package com.budaev.caching.redis.service.person;
 
-import com.budaev.caching.redis.entity.exception.UserNotFoundException;
-import com.budaev.caching.redis.entity.model.Person;
-import com.budaev.caching.redis.service.cache.PersonCacheService;
+import com.budaev.caching.entity.exception.UserNotFoundException;
+import com.budaev.caching.entity.model.Person;
+import com.budaev.caching.service.cache.PersonCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -24,7 +22,7 @@ public class PersonService {
 	}
 
 	public Person get(Long id) {
-		return Optional.ofNullable(personCacheService.get(id)).orElseThrow(() -> new UserNotFoundException(String.valueOf(id)));
+		return personCacheService.get(id).orElseThrow(() -> new UserNotFoundException(String.valueOf(id)));
 	}
 
 	private void validate(Person person) {

@@ -1,4 +1,4 @@
-package com.budaev.caching.redis.config.redis;
+package com.budaev.caching.redis.config.cache.redis;
 
 import com.budaev.caching.redis.service.messaging.publisher.MessagePublisher;
 import com.budaev.caching.redis.service.messaging.publisher.RedisStringMessagePublisher;
