@@ -1,4 +1,4 @@
-package com.budaev.caching.redis.entity.model;
+package com.budaev.caching.entity.model;
 
 import java.io.Serializable;
 

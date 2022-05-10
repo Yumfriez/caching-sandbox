@@ -1,4 +1,4 @@
-package com.budaev.caching.redis.config.web;
+package com.budaev.caching.config.web;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;

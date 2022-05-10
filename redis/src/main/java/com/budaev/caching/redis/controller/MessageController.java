@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author <a href="mailto:ivan_budayeu@epam.com">Ivan Budayeu</a>
  */
 @RestController
-@RequestMapping(value = "message")
+@RequestMapping(value = "/message")
 public class MessageController {
 
 	private final MessagePublisher<String> messagePublisher;

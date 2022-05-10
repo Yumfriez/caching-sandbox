@@ -12,8 +12,8 @@ class App extends Component {
         let keys = ['First', 'Second', 'Third', 'Fourth'];
 
         let result = await Promise.all(keys.map(async (k) => {
-            const createResponse = await fetch('/dummy/add?' + new URLSearchParams({key: k, value: k + k}).toString());
-            const response = await fetch('/dummy/' + k);
+            const createResponse = await fetch('/kv/add?' + new URLSearchParams({key: k, value: k + k}).toString());
+            const response = await fetch('/kv/' + k);
             return await response.text();
         }));
 
