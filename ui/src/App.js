@@ -29,6 +29,12 @@ class App extends Component {
             return await response.json();
         }));
 
+        let messages = ['first', 'second', 'third'];
+
+        messages.forEach(m => {
+            fetch('/message/publish?' + new URLSearchParams({message: m}).toString())
+        })
+
         this.setState({values: result, persons: personsResult});
     }
 
@@ -48,7 +54,7 @@ class App extends Component {
                         )}
                         <h2>Persons</h2>
                         {persons.map(p => {
-                            console.log({p})
+                                console.log({p})
                                 return (<div key={p.id}>
                                     {p.login} {p.password}
                                 </div>)
