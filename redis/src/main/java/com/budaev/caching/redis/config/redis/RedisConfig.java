@@ -1,5 +1,8 @@
-package com.budaev.caching.redis.config.cache;
+package com.budaev.caching.redis.config.redis;
 
+import com.budaev.caching.redis.service.messaging.publisher.MessagePublisher;
+import com.budaev.caching.redis.service.messaging.publisher.RedisStringMessagePublisher;
+import com.budaev.caching.redis.service.messaging.subscriber.RedisMessageSubscriber;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -16,6 +19,9 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.io.Serializable;
@@ -62,6 +68,36 @@ public class RedisConfig {
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 				.addModule(new JavaTimeModule())
 				.build();
+
+	}
+
+	@Configuration
+	public class RedisMessagingConfig {
+
+		public static final String TEST_QUEUE = "testQueue";
+
+		@Bean
+		public MessageListenerAdapter messageListener() {
+			return new MessageListenerAdapter(new RedisMessageSubscriber());
+		}
+
+		@Bean
+		public RedisMessageListenerContainer redisContainer() {
+			final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+			container.setConnectionFactory(redisConnectionFactory());
+			container.addMessageListener(messageListener(), topic());
+			return container;
+		}
+
+		@Bean
+		public MessagePublisher<String> redisStringMessagePublisher() {
+			return new RedisStringMessagePublisher(redisTemplate(), topic());
+		}
+
+		@Bean
+		public ChannelTopic topic() {
+			return new ChannelTopic(TEST_QUEUE);
+		}
 
 	}
 }
